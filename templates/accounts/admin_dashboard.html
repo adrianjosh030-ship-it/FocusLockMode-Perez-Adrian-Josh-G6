@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Admin Dashboard | {{ SYSTEM_NAME }}{% endblock %}
+{% block content %}
+<h1>Admin Dashboard</h1>
+<p class="muted">Signed in as {{ user.get_full_name|default:user.username }} (Admin)</p>
+<div class="grid">
+  <div class="card stat"><span>{{ total_users }}</span>Total users</div>
+  <div class="card stat"><span>{{ admin_count }}</span>Admins</div>
+  <div class="card stat"><span>{{ student_count }}</span>Students</div>
+</div>
+<div class="card">
+  <h2>Recently registered</h2>
+  <table>
+    <thead><tr><th>Username</th><th>Email</th><th>Role</th><th>Joined</th></tr></thead>
+    <tbody>
+      {% for u in recent_users %}
+        <tr><td>{{ u.username }}</td><td>{{ u.email }}</td><td>{{ u.get_role_display }}</td><td>{{ u.date_joined|date:"M d, Y" }}</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

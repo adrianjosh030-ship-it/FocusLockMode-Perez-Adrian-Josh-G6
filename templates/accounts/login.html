@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Login | {{ SYSTEM_NAME }}{% endblock %}
+{% block content %}
+<div class="card narrow">
+  <h1>Log in</h1>
+  <form method="post" novalidate>
+    {% csrf_token %}
+    <input type="hidden" name="next" value="{{ next }}">
+    {% for field in form %}
+      <div class="field">
+        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+        {{ field }}
+      </div>
+    {% endfor %}
+    <button type="submit" class="btn">Log in</button>
+  </form>
+  <p class="muted">No account yet? <a href="{% url 'accounts:register' %}">Register</a></p>
+</div>
+{% endblock %}

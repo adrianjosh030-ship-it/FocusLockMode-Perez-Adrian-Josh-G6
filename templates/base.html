@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}{{ SYSTEM_NAME }}{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+  <header class="nav">
+    <a class="brand" href="{% url 'home' %}">{{ SYSTEM_NAME }}</a>
+    <nav>
+      {% if user.is_authenticated %}
+        {% if user.role == 'admin' %}
+          <a href="{% url 'accounts:admin_dashboard' %}">Admin Dashboard</a>
+        {% else %}
+          <a href="{% url 'accounts:student_dashboard' %}">My Dashboard</a>
+        {% endif %}
+        <a href="{% url 'accounts:profile' %}">Profile</a>
+        <form method="post" action="{% url 'accounts:logout' %}" class="inline">
+          {% csrf_token %}<button type="submit" class="link-btn">Logout</button>
+        </form>
+      {% else %}
+        <a href="{% url 'accounts:login' %}">Login</a>
+        <a href="{% url 'accounts:register' %}">Register</a>
+      {% endif %}
+    </nav>
+  </header>
+
+  <main class="container">
+    {% if messages %}
+      {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+      {% endfor %}
+    {% endif %}
+    {% block content %}{% endblock %}
+  </main>
+</body>
+</html>

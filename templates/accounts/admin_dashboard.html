@@ -9,6 +9,11 @@
   <div class="card stat"><span>{{ student_count }}</span>Students</div>
 </div>
 <div class="card">
+  <h2>Focus sessions</h2>
+  <p>View every student's focus sessions.</p>
+  <a class="btn" href="{% url 'focus:list' %}">View all focus sessions</a>
+</div>
+<div class="card">
   <h2>Recently registered</h2>
   <table>
     <thead><tr><th>Username</th><th>Email</th><th>Role</th><th>Joined</th></tr></thead>

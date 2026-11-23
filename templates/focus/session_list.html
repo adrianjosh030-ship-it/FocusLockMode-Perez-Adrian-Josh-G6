@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>{% if is_admin %}All focus sessions{% else %}My focus sessions{% endif %}</h2>
+<a href="{% url 'focus:create' %}">+ New session</a>
+<p>Filter:
+  <a href="?">All</a> | <a href="?status=planned">Planned</a> |
+  <a href="?status=active">Active</a> | <a href="?status=completed">Completed</a> |
+  <a href="?status=abandoned">Abandoned</a>
+</p>
+<table>
+  <tr><th>Title</th>{% if is_admin %}<th>Student</th>{% endif %}<th>Category</th><th>Minutes</th><th>Status</th><th></th></tr>
+  {% for s in sessions %}
+  <tr>
+    <td>{{ s.title }}</td>
+    {% if is_admin %}<td>{{ s.user.username }}</td>{% endif %}
+    <td>{{ s.category|default:"-" }}</td>
+    <td>{{ s.planned_minutes }}</td>
+    <td>{{ s.get_status_display }}</td>
+    <td><a href="{% url 'focus:detail' s.pk %}">View</a></td>
+  </tr>
+  {% empty %}<tr><td colspan="6">No sessions yet.</td></tr>
+  {% endfor %}
+</table>
+{% endblock %}

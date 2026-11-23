@@ -4,8 +4,7 @@
 <h1>Hi, {{ user.first_name|default:user.username }}!</h1>
 <p class="muted">Student dashboard: ready to focus?</p>
 <div class="grid">
-  <div class="card"><h2>Focus session</h2><p class="muted">Pomodoro timer and custom sessions are coming in the next phase.</p></div>
-  <div class="card"><h2>My tasks</h2><p class="muted">Task management is coming in the next phase.</p></div>
+  <div class="card"><h2>Focus session</h2><p>Plan, start, and finish your focus sessions.</p><a class="btn" href="{% url 'focus:list' %}">Open focus sessions</a></div>  <div class="card"><h2>My tasks</h2><p class="muted">Task management is coming in the next phase.</p></div>
   <div class="card"><h2>Streaks &amp; goals</h2><p class="muted">Study streaks, goals and reports are coming in the next phase.</p></div>
   <div class="card"><h2>My profile</h2><p>View or update your details.</p><a class="btn" href="{% url 'accounts:profile' %}">Open profile</a></div>
 </div>

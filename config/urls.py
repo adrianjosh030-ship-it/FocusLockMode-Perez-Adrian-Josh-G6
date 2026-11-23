@@ -9,6 +9,7 @@ urlpatterns = [
     path("django-admin/", admin.site.urls),
     path("", home, name="home"),
     path("accounts/", include("accounts.urls")),
+    path("focus/", include("focus.urls")),
 ]
 
 if settings.DEBUG:

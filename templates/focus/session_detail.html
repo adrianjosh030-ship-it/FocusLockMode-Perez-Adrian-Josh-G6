@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>{{ s.title }}</h2>
+<p>Student: {{ s.user.username }} | Category: {{ s.category|default:"-" }}</p>
+<p>Planned: {{ s.planned_minutes }} min | Status: {{ s.get_status_display }}</p>
+<p>Started: {{ s.started_at|default:"-" }} | Ended: {{ s.ended_at|default:"-" }}</p>
+<p>{{ s.notes }}</p>
+
+{% if s.status == "planned" %}
+<form method="post" action="{% url 'focus:start' s.pk %}" style="display:inline">{% csrf_token %}<button>Start focus</button></form>
+<a href="{% url 'focus:update' s.pk %}">Edit</a>
+{% elif s.status == "active" %}
+<form method="post" action="{% url 'focus:finish' s.pk 'complete' %}" style="display:inline">{% csrf_token %}<button>Complete</button></form>
+<form method="post" action="{% url 'focus:finish' s.pk 'abandon' %}" style="display:inline">{% csrf_token %}<button>Abandon</button></form>
+{% endif %}
+<a href="{% url 'focus:delete' s.pk %}">Delete</a> | <a href="{% url 'focus:list' %}">Back</a>
+{% endblock %}

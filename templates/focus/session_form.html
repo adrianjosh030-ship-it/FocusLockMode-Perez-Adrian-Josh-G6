@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>{{ title }}</h2>
+<form method="post">{% csrf_token %}
+  {{ form.as_p }}
+  <p><a href="{% url 'focus:category_create' %}">+ Add a category</a></p>
+  <button type="submit">Save</button>
+  <a href="{% url 'focus:list' %}">Cancel</a>
+</form>
+{% endblock %}
